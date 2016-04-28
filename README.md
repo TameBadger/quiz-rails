@@ -1,24 +1,5 @@
-## README
+## Quiz Me
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The accompanying backend solution for the [quiz-ember](https://github.com/TameBadger/quiz-ember#quiz-me) application.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[Ruby on Rails](http://rubyonrails.org/) in [API mode](http://edgeguides.rubyonrails.org/api_app.html), built on the [JSON API](http://jsonapi.org) specification.
