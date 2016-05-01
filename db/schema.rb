@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160426004017) do
+ActiveRecord::Schema.define(version: 6) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "digital_fingerprints", force: :cascade do |t|
     t.string   "fingerprint"
@@ -38,9 +41,9 @@ ActiveRecord::Schema.define(version: 20160426004017) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "pair_answers", ["answer_id"], name: "index_pair_answers_on_answer_id"
-  add_index "pair_answers", ["pair_id"], name: "index_pair_answers_on_pair_id"
-  add_index "pair_answers", ["sheet_id"], name: "index_pair_answers_on_sheet_id"
+  add_index "pair_answers", ["answer_id"], name: "index_pair_answers_on_answer_id", using: :btree
+  add_index "pair_answers", ["pair_id"], name: "index_pair_answers_on_pair_id", using: :btree
+  add_index "pair_answers", ["sheet_id"], name: "index_pair_answers_on_sheet_id", using: :btree
 
   create_table "pairs", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -54,7 +57,7 @@ ActiveRecord::Schema.define(version: 20160426004017) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "quiz_sheets", ["digital_fingerprint_id"], name: "index_quiz_sheets_on_digital_fingerprint_id"
+  add_index "quiz_sheets", ["digital_fingerprint_id"], name: "index_quiz_sheets_on_digital_fingerprint_id", using: :btree
 
   create_table "statements", force: :cascade do |t|
     t.string   "option"
@@ -64,6 +67,11 @@ ActiveRecord::Schema.define(version: 20160426004017) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "statements", ["pair_id"], name: "index_statements_on_pair_id"
+  add_index "statements", ["pair_id"], name: "index_statements_on_pair_id", using: :btree
 
+  add_foreign_key "pair_answers", "pairs"
+  add_foreign_key "pair_answers", "quiz_sheets", column: "sheet_id"
+  add_foreign_key "pair_answers", "statements", column: "answer_id"
+  add_foreign_key "quiz_sheets", "digital_fingerprints"
+  add_foreign_key "statements", "pairs"
 end
